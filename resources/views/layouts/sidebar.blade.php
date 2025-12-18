@@ -61,10 +61,22 @@
                 <i class="fa-solid fa-house me-2"></i> Dashboard
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="{{ route('customer') }}"
                 class="nav-link text-gold ">
                 <i class="fa-solid fa-user-group me-2"></i> Customers
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('followup') }}"
+                class="nav-link text-gold ">
+                <i class="fa-solid  fa-user-group  me-2"></i> FollowUp
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('followup_list') }}"
+                class="nav-link text-gold ">
+                <i class="fa-solid fa-users me-2"></i> FollowUp List
             </a>
         </li>
         <li class="nav-item">
@@ -79,29 +91,38 @@
                 <i class="fa-solid  fa-folder  me-2"></i> Project Type
             </a>
         </li>
-        <li class="nav-item">
-            <a href="#"
-                class="nav-link text-gold ">
-                <i class="fa-solid fa-chart-line me-2"></i> Reports
-            </a>
-        </li>
 
         <li class="nav-item">
-            <a href="#"
+            <a href="{{ route('reminder_followup_list') }}"
                 class="nav-link text-gold ">
                 <i class="fa-solid fa-bell me-2"></i> Reminders
-
-
-                <span class="badge bg-danger ms-2">7</span>
-
-
-
-
+                @if($reminderCount > 0)
+                    <span class="badge bg-danger ms-2">{{ $reminderCount }}</span>
+                @endif
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('menu') }}"
+                class="nav-link text-gold ">
+                <i class="fa-solid fa-bell me-2"></i> Menu
+            </a>
+        </li> -->
+        @foreach($sidebarMenus ?? [] as $menu)
+            <li class="nav-item">
+                <a href="{{ route($menu->route) }}"
+                class="nav-link text-gold {{ request()->routeIs($menu->route) ? 'active' : '' }}">
+                    <i class="fa-solid {{ $menu->icon }} me-2"></i>
+                    {{ $menu->name }}
+
+                    @if($menu->route == 'reminder_followup_list' && $reminderCount > 0)
+                        <span class="badge bg-danger ms-2">{{ $reminderCount }}</span>
+                    @endif
+                </a>
+            </li>
+        @endforeach
 
         <li class="nav-item mt-auto">
-            <form action="#" method="POST" class="d-inline">
+            <form action="{{ route('logout') }}" method="POST" class="d-inline">
                 @csrf
                 <button type="submit" class="nav-link Logout text-white btn btn-link pl-10">
                     <i class="fa-solid fa-right-from-bracket"></i> Logout
