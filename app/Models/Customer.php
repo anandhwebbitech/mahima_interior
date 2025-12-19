@@ -22,6 +22,6 @@ class Customer extends Model
     }
     public function followUps()
     {
-        return $this->hasMany(FollowUp::class);
+        return $this->hasMany(Followup::class);
     }
 }
